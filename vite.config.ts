@@ -9,6 +9,7 @@ export default defineConfig({
     port: 80
   },
   build: {
-    outDir: 'gh-pages'
+    outDir: 'gh-pages',
+    assetsDir: './'
   }
 })

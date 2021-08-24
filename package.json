@@ -1,8 +1,6 @@
 {
   "name": "musicapp",
   "version": "0.0.0",
-  "private": true,
-  "homepage" : "https://music-xt.github.io/MusicApp",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
