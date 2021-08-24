@@ -9,6 +9,6 @@ export default defineConfig({
     port: 80
   },
   build: {
-    outDir: 'D:\\dev\\phpStudy\\PHPTutorial\\WWW'
+    outDir: 'gh-pages'
   }
 })
