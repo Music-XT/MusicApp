@@ -46,9 +46,10 @@ export default defineComponent({
     padding: .2rem;
 
     .music-list-top {
-        padding: 0 0 .15rem;
+        margin: 0 0 .15rem;
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         .title {
             font-size: .3rem;   
@@ -57,10 +58,11 @@ export default defineComponent({
 
         .more {
             border: 1px solid #999;
+            border-radius: .2rem;
             color: #999;
             padding: .02rem .16rem;
-            border-radius: .2rem;
             font-size: .24rem;
+            line-height: .33rem;
         }
     }
 

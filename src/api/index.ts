@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localdev:3000';
+const baseURL = 'https://music-api-xtyuns.vercel.app';
 
 /**
  * 获取首页 Banner 列表

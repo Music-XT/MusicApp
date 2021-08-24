@@ -24,7 +24,7 @@ export default defineComponent({
 <style lang="less" scoped>
 
 .top-nav {
-    width: 7.5rem;
+    width: 100%;
     height: .85rem;
     display: flex;
     justify-content: space-between;
@@ -37,7 +37,7 @@ export default defineComponent({
         justify-content: space-evenly;
 
         .active {
-            font-weight: bold;
+            font-weight: 600;
         }
     }
 }
