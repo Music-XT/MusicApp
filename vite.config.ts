@@ -9,7 +9,7 @@ export default defineConfig({
     port: 80
   },
   build: {
-    outDir: 'gh-pages',
-    assetsDir: './'
-  }
+    outDir: 'gh-pages'
+  },
+  base: 'MusicApp'
 })
