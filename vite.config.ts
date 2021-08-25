@@ -11,5 +11,5 @@ export default defineConfig({
   build: {
     outDir: 'gh-pages'
   },
-  base: 'MusicApp'
+  base: '/MusicApp/'
 })

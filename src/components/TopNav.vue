@@ -37,7 +37,7 @@ export default defineComponent({
         justify-content: space-evenly;
 
         .active {
-            font-weight: 600;
+            font-weight: 700;
         }
     }
 }
