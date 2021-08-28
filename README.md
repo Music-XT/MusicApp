@@ -1,3 +1,8 @@
+## 在线预览
+[![main](https://github.com/Music-XT/MusicApp/actions/workflows/gh-pages.yml/badge.svg?branch=main)](https://music-xt.github.io/MusicApp)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/86d022ba-0a44-42d1-9b96-9afa5dd730db/deploy-status)](https://dev-music-xt.netlify.app)
+
+
 ## 开发环境
 1. nodejs v14.16.1、npm v6.14.12
 2. VSCode + Volar
