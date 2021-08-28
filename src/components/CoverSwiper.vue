@@ -13,7 +13,7 @@ import 'swiper/swiper.less';
 import SwiperCore, { Pagination, Autoplay } from 'swiper/core';
 import "swiper/components/pagination/pagination.min.css"
 SwiperCore.use([Pagination, Autoplay]);
-import { getBanners } from '../api/index';
+import { getBanners } from '@/api/index';
 
 export default defineComponent({
     name: 'CoverSwiper',

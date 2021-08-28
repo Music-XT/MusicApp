@@ -23,7 +23,7 @@
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper.less';
-import { getMusicList } from '../api/index';
+import { getMusicList } from '@/api/index';
 
 export default defineComponent({
     name: 'MusicList',

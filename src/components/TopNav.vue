@@ -1,13 +1,13 @@
 <template>
 <div class="top-nav">
-    <img class="top-nav-left xt-icon" src="../assets/imgs/menu.png" alt="菜单">
+    <img class="top-nav-left xt-icon" src="@/assets/imgs/menu.png" alt="菜单">
     <div class="top-nav-center">
         <span>我的</span>
         <span class="active">发现</span>
         <span>云村</span>
         <span>视频</span>
     </div>
-    <img class="top-nav-right xt-icon" src="../assets/imgs/search.png" alt="搜索">
+    <img class="top-nav-right xt-icon" src="@/assets/imgs/search.png" alt="搜索">
 </div>
 </template>
 
