@@ -1,23 +1,23 @@
 <template>
 <div class="icon-list">
     <div class="icon-list-item">
-        <img src="../assets/imgs/recommend.png" alt="推荐">
+        <img src="@/assets/imgs/recommend.png" alt="推荐">
         <span>每日推荐</span>
     </div>
     <div class="icon-list-item">
-        <img src="../assets/imgs/personal.png" alt="推荐">
+        <img src="@/assets/imgs/personal.png" alt="推荐">
         <span>私人FM</span>
     </div>
     <div class="icon-list-item">
-        <img src="../assets/imgs/songs.png" alt="推荐">
+        <img src="@/assets/imgs/songs.png" alt="推荐">
         <span>歌单</span>
     </div>
     <div class="icon-list-item">
-        <img src="../assets/imgs/rank.png" alt="推荐">
+        <img src="@/assets/imgs/rank.png" alt="推荐">
         <span>排行榜</span>
     </div>
     <div class="icon-list-item">
-        <img src="../assets/imgs/living.png" alt="推荐">
+        <img src="@/assets/imgs/living.png" alt="推荐">
         <span>直播</span>
     </div>
 </div>

@@ -1,15 +1,31 @@
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfigExport } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-  server: {
-    host: '0.0.0.0',
-    port: 80
+
+// 默认环境名称
+const DEV = 'development'
+const PRO = 'production'
+
+const config: {base: UserConfigExport, [prop: string]: UserConfigExport}  = {
+  // https://vitejs.dev/config/
+  base: {
+    plugins: [vue()],
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'src')
+      }
+    }
   },
-  build: {
-    outDir: 'gh-pages'
+  [DEV]: {
+    server: {
+      host: '0.0.0.0',
+      port: 80
+    }
   },
-  base: '/MusicApp/'
-})
+  [PRO]: {
+  }
+}
+
+// 根据项目环境配置 vite.config.ts
+export default defineConfig(({ mode }) => ({...(config.base), ...(config[mode])}))
