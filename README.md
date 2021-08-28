@@ -9,7 +9,7 @@
 
 
 ## 注意事项
-1. [后端接口](./src/api/index.ts#L3)请自行搭建: [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+1. [后端接口](./.env#L1)请自行搭建: [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 2. vite.config.ts 文件中的构建路径需要自行修改
 
 

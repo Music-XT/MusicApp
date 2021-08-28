@@ -1,6 +1,5 @@
-import axios from 'axios'
+import requests from '@/utils/requests';
 
-const apiURL = import.meta.env.VITE_API_URL;
 
 /**
  * 获取首页 Banner 列表
@@ -10,7 +9,7 @@ const apiURL = import.meta.env.VITE_API_URL;
 export async function getBanners(type = 2) {
     const banners: string[] = [];
     try {
-        const res = await axios.get(`${apiURL}/banner?type=${type}`);
+        const res = await requests.get(`/banner?type=${type}`);
         banners.push(...(<any[]> res.data.banners).map(item => item.pic));
     } catch (e) {
         console.error('获取首页 banner 列表失败: ' + e.message);
@@ -27,7 +26,7 @@ export async function getBanners(type = 2) {
 export async function getMusicList(limit = 10) {
     const playLists = [];
     try {
-        const res = await axios.get(`${apiURL}/top/playlist?limit=${limit}`);
+        const res = await requests.get(`/top/playlist?limit=${limit}`);
         playLists.push(...((<any[]> res.data.playlists).map(item => ({name: item.name, coverImgUrl: item.coverImgUrl}))));
     }   catch (e) {
         console.error('获取首页歌单列表失败: ' + e.message);
