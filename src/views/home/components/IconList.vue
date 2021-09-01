@@ -23,15 +23,6 @@
 </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-    name: 'IconList',
-    setup: () => {
-        return {}
-    }
-})
-</script>
 
 <style lang="less" scoped>
 .icon-list {
