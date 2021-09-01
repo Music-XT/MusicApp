@@ -15,4 +15,9 @@ export default defineComponent({
   padding: 0;
   box-sizing: border-box;
 }
+
+.icon {
+  width: 2em; height: 2em;
+  overflow: hidden;
+}
 </style>

@@ -3,7 +3,6 @@
     <BannerSwiper />
     <IconList />
     <SongSwiper />
-    <router-link to="/songs">To Songs</router-link>
 </template>
 
 <script lang="ts" setup>

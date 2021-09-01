@@ -27,10 +27,33 @@ export async function getMusicList(limit = 10) {
     const playLists = [];
     try {
         const res = await requests.get(`/top/playlist?limit=${limit}`);
-        playLists.push(...((<any[]> res.data.playlists).map(item => ({name: item.name, coverImgUrl: item.coverImgUrl}))));
+        playLists.push(...((<any[]> res.data.playlists).map(item => ({
+            id: item.id,
+            name: item.name,
+            coverImgUrl: item.coverImgUrl
+        }))));
     }   catch (e) {
         console.error('获取首页歌单列表失败: ' + e.message);
     }
 
     return playLists;
+}
+
+/**
+ * 获取歌单详情
+ * @param id 歌单ID
+ * @returns 歌单详情
+ */
+export async function getMusicListDetail(id: number):Promise<any> {
+    let ret = {};
+    try {
+        const res = await requests.get(`/playlist/detail?id=${id}`)
+        if(undefined == res.data.playlist) throw new Error(res.data.msg);
+        ret = res.data.playlist;
+    } catch(e) {
+        console.error('获取歌单详情失败: ' + e.message);
+    }
+
+    console.log(ret)
+    return ret;
 }
