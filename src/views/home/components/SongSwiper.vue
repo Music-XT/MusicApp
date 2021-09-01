@@ -19,26 +19,17 @@
 </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onBeforeMount, ref } from 'vue'
+
+<script lang="ts" setup>
+import { onBeforeMount, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper.less';
 import { getMusicList } from '@/api/index';
 
-export default defineComponent({
-    name: 'MusicList',
-    components: {
-        Swiper,
-        SwiperSlide
-    },
-    setup: () => {
-        const musicList = ref(<any[]> []);
-        onBeforeMount(async() => {
-            musicList.value = await getMusicList();
-        });
-        return { musicList }
-    }
-})
+const musicList = ref(<any[]> []);
+onBeforeMount(async() => {
+    musicList.value = await getMusicList();
+});
 </script>
 
 <style lang="less" scoped>
