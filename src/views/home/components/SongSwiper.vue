@@ -11,7 +11,7 @@
         :free-mode="true"
         :space-between="10"
     >
-        <swiper-slide class="music-list-item" v-for="(item, idx) in musicList" :key="idx">
+        <swiper-slide class="music-list-item" v-for="(item, idx) in musicList" :key="idx" @click="$router.push(`/songs/${item.id}`)">
             <img :src="item.coverImgUrl" alt="">
             <span>{{ item.name }}</span>
         </swiper-slide>
@@ -24,7 +24,7 @@
 import { onBeforeMount, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper.less';
-import { getMusicList } from '@/api/index';
+import { getMusicList, getMusicListDetail } from '@/api/index';
 
 const musicList = ref(<any[]> []);
 onBeforeMount(async() => {

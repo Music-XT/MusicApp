@@ -6,7 +6,7 @@ const Songs = () => import('@/views/songs/index.vue');
 
 const routes = [
     { path: '/', component: Home },
-    { path: '/songs', component: Songs }
+    { path: '/songs/:id(\\d+)', component: Songs }
 ];
 
 

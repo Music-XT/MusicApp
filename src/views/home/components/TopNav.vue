@@ -1,13 +1,17 @@
 <template>
 <div class="top-nav">
-    <img class="top-nav-left icon" src="@/assets/imgs/menu.png" alt="菜单">
+    <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-nav"></use>
+    </svg>
     <div class="top-nav-center">
         <span>我的</span>
         <span class="active">发现</span>
         <span>云村</span>
         <span>视频</span>
     </div>
-    <img class="top-nav-right icon" src="@/assets/imgs/search.png" alt="搜索">
+    <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-search"></use>
+    </svg>
 </div>
 </template>
 
@@ -20,10 +24,6 @@
     align-items: center;
     padding: 0 .2rem;
     
-    .icon {
-        width: .5rem;
-    }
-
     .top-nav-center {
         flex-grow: .5;
         display: flex;
