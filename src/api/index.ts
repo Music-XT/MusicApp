@@ -12,7 +12,7 @@ export async function getBanners(type = 2) {
         const res = await requests.get(`/banner?type=${type}`);
         banners.push(...(<any[]> res.data.banners).map(item => item.pic));
     } catch (e) {
-        console.error('获取首页 banner 列表失败: ' + e.message);
+        console.error('获取首页 banner 列表失败: ' + (<Error>e).message);
     }
     return banners;
 }
@@ -26,14 +26,14 @@ export async function getBanners(type = 2) {
 export async function getMusicList(limit = 10) {
     const playLists = [];
     try {
-        const res = await requests.get(`/top/playlist?limit=${limit}`);
-        playLists.push(...((<any[]> res.data.playlists).map(item => ({
+        const res = await requests.get(`/personalized?limit=${limit}`)
+        playLists.push(...((<any[]> res.data.result).map(item => ({
             id: item.id,
             name: item.name,
-            coverImgUrl: item.coverImgUrl
-        }))));
-    }   catch (e) {
-        console.error('获取首页歌单列表失败: ' + e.message);
+            coverImgUrl: item.picUrl
+        }))))
+    } catch(e) {
+        console.error('获取首页歌单列表失败: ' + (<Error>e).message);
     }
 
     return playLists;
@@ -51,7 +51,7 @@ export async function getMusicListDetail(id: number):Promise<any> {
         if(undefined == res.data.playlist) throw new Error(res.data.msg);
         ret = res.data.playlist;
     } catch(e) {
-        console.error('获取歌单详情失败: ' + e.message);
+        console.error('获取歌单详情失败: ' + (<Error>e).message);
     }
 
     console.log(ret)
