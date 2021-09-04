@@ -3,7 +3,7 @@
         <img class="bg" :src="coverImgUrl" alt="">
         <div class="view-nav">
             <div class="left">
-                <svg class="icon" aria-hidden="true" @click="$router.back()">
+                <svg class="icon" aria-hidden="true" @click="backAction">
                     <use xlink:href="#icon-back"></use>
                 </svg>
                 <div class="title">歌单<sup>&reg;</sup></div>
@@ -66,6 +66,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from "vue-router";
+
 defineProps({
     coverImgUrl: String,
     playCount: Number,
@@ -75,6 +77,12 @@ defineProps({
     commentCount: Number,
     shareCount: Number
 })
+
+const router = useRouter()
+const backAction = () => {
+    if(window.history.length > 1) router.back()
+    else router.push('/')  
+}
 </script>
 
 <style lang="less" scoped>
