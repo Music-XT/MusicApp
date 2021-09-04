@@ -1,7 +1,19 @@
 <template>
-    <ListViewTop />
-    <ListViewSongs />
-    参数: {{$route.params}}
+    <ListViewTop
+        :cover-img-url="listDetail?.coverImgUrl"
+        :play-count="listDetail?.playCount"
+        :name="listDetail?.name"
+        :creator="listDetail?.creator"
+        :description="listDetail?.description"
+        :comment-count="listDetail?.commentCount ?? 0"
+        :share-count="listDetail?.shareCount ?? 0"
+    />
+    <ListViewSongs
+        :subscribed-count="listDetail?.subscribedCount?? 0"
+        :tags="listDetail?.tags ?? []"
+        :tracks="listDetail?.tracks ?? []"
+     />
+    <!-- 参数: {{$route.params}} -->
 </template>
 
 
@@ -12,9 +24,10 @@ import { onBeforeMount, ref } from '@vue/runtime-core';
 import { getMusicListDetail } from '@/api';
 import { useRoute } from 'vue-router';
 
-const listDetail = ref(null);
+const route = useRoute();
+const listDetail = ref();
 onBeforeMount(async () => {
-    // listDetail.value = await getMusicListDetail(Number(useRoute().params.id));
+    listDetail.value = await getMusicListDetail(Number(route.params.id))
 });
 </script>
 
