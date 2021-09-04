@@ -1,6 +1,6 @@
 <template>
     <div class="list-view-top">
-        <img class="bg" :src="listDetail?.coverImgUrl" alt="">
+        <img class="bg" :src="coverImgUrl" alt="">
         <div class="view-nav">
             <div class="left">
                 <svg class="icon" aria-hidden="true" @click="$router.back()">
@@ -18,37 +18,45 @@
             </div>
         </div>
         <div class="view-info">
-            <img class="cover" :src="listDetail?.coverImgUrl" alt="">
-            <div class="text">
-                <div class="title">{{ listDetail?.name }}</div>
-                <div class="author">
-                    <img :src="listDetail?.creator.avatarUrl" alt="">
-                    <span>{{ listDetail?.creator.nickname }}</span>
+            <div class="cover">
+                <img :src="coverImgUrl" alt="">
+                <div class="count">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-playcount"></use>
+                    </svg>
+                    <span>{{ playCount }}</span>
                 </div>
-                <div class="desc">{{ listDetail?.description }}</div>
+            </div>
+            <div class="text">
+                <div class="title">{{ name }}</div>
+                <div class="author">
+                    <img :src="creator?.avatarUrl" alt="">
+                    <span>{{ creator?.nickname }}</span>
+                </div>
+                <div class="desc">{{ description }}</div>
             </div>
         </div>
         <div class="view-operate">
             <div class="operate">
-                <svg class="icon" aria-hidden="true" @click="$router.back()">
+                <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-comment"></use>
                 </svg>
-                <span>{{ listDetail?.commentCount }}</span>
+                <span>{{ commentCount }}</span>
             </div>
             <div class="operate">
-                <svg class="icon" aria-hidden="true" @click="$router.back()">
+                <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-share"></use>
                 </svg>
-                <span>{{ listDetail?.shareCount }}</span>
+                <span>{{ shareCount }}</span>
             </div>
             <div class="operate">
-                <svg class="icon" aria-hidden="true" @click="$router.back()">
+                <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-download"></use>
                 </svg>
                 <span>下载</span>
             </div>
             <div class="operate">
-                <svg class="icon" aria-hidden="true" @click="$router.back()">
+                <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-select"></use>
                 </svg>
                 <span>多选</span>
@@ -58,16 +66,15 @@
 </template>
 
 <script lang="ts" setup>
-import { getMusicListDetail } from "@/api";
-import { onBeforeMount, onMounted, ref } from "@vue/runtime-core";
-import { useRoute } from "vue-router";
-const route = useRoute();
-const listDetail = ref();
-
-onBeforeMount(async () => {
-    listDetail.value = await getMusicListDetail(Number(route.params.id))
-});
-
+defineProps({
+    coverImgUrl: String,
+    playCount: Number,
+    name: String,
+    creator: Object,
+    description: String,
+    commentCount: Number,
+    shareCount: Number
+})
 </script>
 
 <style lang="less" scoped>
@@ -114,10 +121,29 @@ onBeforeMount(async () => {
         display: flex;
         margin-top: .35rem;
         padding: 0 .15rem;
-        height: 2.5rem;
 
         .cover {
-            border-radius: .1rem;
+            position: relative;
+            
+            img {
+                height: 2.5rem;
+                border-radius: .1rem;
+            }
+
+            .count {
+                position: absolute;
+                top: .05rem;
+                right: .05rem;
+                display: flex;
+                align-items: center;
+                color: #fff;
+                fill: #fff;
+                font-size: .24rem;
+                svg {
+                    width: .3rem;
+                    height: .3rem;
+                }
+            }
         }
         .text {
             margin-left: .35rem;
@@ -162,7 +188,7 @@ onBeforeMount(async () => {
         display: flex;
         justify-content: space-around;
         margin: .4rem 0;
-        color: #ddd;
+        color: #eee;
 
         .operate {
             display: flex;
@@ -170,7 +196,7 @@ onBeforeMount(async () => {
             align-items: center;
 
             svg {
-                fill: #ddd;
+                fill: #eee;
             }
         }
     }
