@@ -11,7 +11,8 @@
     "axios": "^0.21.1",
     "swiper": "^6.8.2",
     "vue": "^3.2.6",
-    "vue-router": "^4.0.11"
+    "vue-router": "^4.0.11",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@types/node": "^16.7.4",
