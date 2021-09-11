@@ -2,7 +2,7 @@
     <div class="list-view-songs">
         <div class="line">
             <svg class="left icon" aria-hidden="true">
-                <use xlink:href="#icon-playall"></use>
+                <use xlink:href="#icon-play"></use>
             </svg>
             <div class="center playall">播放全部 <span>(共{{ tracks?.length }}首)</span></div>
             <div class="right sub">
@@ -12,7 +12,7 @@
                 <span>收藏 ({{ subscribedCount }})</span>
             </div>
         </div>
-        <div class="line" v-for="(item, idx) in tracks" :key="idx">
+        <div class="line" v-for="(item, idx) in tracks" :key="idx" @click="updatePlayList(idx)">
             <div class="left">{{ idx + 1 }}</div>
             <div class="center">
                 <div class="title">{{ item.name }}</div>
@@ -29,6 +29,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useStore } from "@/store";
 import { computed } from "@vue/runtime-core";
 
 const props = defineProps({
@@ -36,12 +37,8 @@ const props = defineProps({
         type: Number,
         required: true
     },
-    tags: {
-        type: Array,
-        required: true
-    },
     tracks: {
-        type: Array as () => Array<{ name: string, al: any, ar: Array<any>, h: any, l: any, m: any }>,
+        type: Array as () => Array<{ id: number, name: string, al: any, ar: Array<any>, h: any, l: any, m: any }>,
         required: true
     }
 })
@@ -52,13 +49,25 @@ const songSupInfo = computed(() => {
         return {
             desc:
                 item.ar.reduce((acc, cur) => [...acc, cur.name], []).join('/') +
-                ' - ' +
-                item.al.name,
+                (item.al.name ? ' - ' + item.al.name : ''),
             sq: (item.h?.vd ?? item.l?.vd ?? item.m?.vd) < 0,
         }
     })
 })
 
+const store = useStore()
+function updatePlayList(index: number) {
+    if(store.state.curPlayIndex === index) return
+
+    store.commit('replacePlayList', {
+        playList: props.tracks.map(item => ({
+            id: item.id,
+            picUrl: item.al.picUrl,
+            name: item.name
+        })),
+        index
+    })
+}
 
 </script>
 

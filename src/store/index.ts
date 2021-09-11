@@ -4,7 +4,8 @@ import { createStore, Store, useStore as baseUseStore } from "vuex";
 
 // TypeScript 类型支持
 export interface State {
-    count: number
+    curPlayIndex: number,
+    playList: any[]
 }
 export const key: InjectionKey<Store<State>> = Symbol()
 
@@ -14,11 +15,21 @@ export const store = createStore<State>({
     strict: !import.meta.env.PROD,
     state() {
         return {
-            count: 0
+            curPlayIndex: -1,
+            playList: []
         }
     },
     mutations: {
-
+        replacePlayList(state, payload) {
+            state.playList = payload.playList
+            state.curPlayIndex = payload.index ?? 0
+        },
+        nextSong(state) {
+            state.curPlayIndex < state.playList.length && state.curPlayIndex++
+        },
+        prevSong(state) {
+            state.curPlayIndex > 0 && state.curPlayIndex--
+        }
     },
     actions: {
         

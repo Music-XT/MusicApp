@@ -57,3 +57,7 @@ export async function getMusicListDetail(id: number):Promise<any> {
     console.log(ret)
     return ret;
 }
+
+export default function getMusicUrl(id: number) {
+    return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+}

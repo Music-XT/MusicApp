@@ -10,16 +10,17 @@
     />
     <ListViewSongs
         :subscribed-count="listDetail?.subscribedCount?? 0"
-        :tags="listDetail?.tags ?? []"
         :tracks="listDetail?.tracks ?? []"
      />
-    <!-- 参数: {{$route.params}} -->
+     
+    <PlayController />
 </template>
 
 
 <script lang="ts" setup>
 import ListViewTop from './components/ListViewTop.vue'
 import ListViewSongs from './components/ListViewSongs.vue'
+import PlayController from '@/components/PlayController.vue'
 import { onBeforeMount, ref } from '@vue/runtime-core';
 import { getMusicListDetail } from '@/api';
 import { useRoute } from 'vue-router';
