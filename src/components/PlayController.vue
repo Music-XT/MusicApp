@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="controller-right">
-                <audio :src="songInfo.src" ref="audio" @play="isPaused = false" @pause="isPaused = true" @ended="store.commit('nextSong')"></audio>
+                <audio :src="songInfo.src" ref="audio" @loadstart="isPaused = true" @play="isPaused = false" @pause="isPaused = true" @ended="store.commit('nextSong')"></audio>
                 <svg class="icon" aria-hidden="true" @click="play(false)" v-show="isPaused">
                     <use xlink:href="#icon-play" />
                 </svg>
@@ -70,6 +70,14 @@ function play(pause = false) {
             padding: 0.1rem;
             border-radius: 50%;
         }
+        >div {
+            max-width: 4.84rem;
+        }
+        .title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         .desc {
             color: #888;
             font-size: 0.24rem;
@@ -79,7 +87,9 @@ function play(pause = false) {
 
     .controller-right {
         svg {
-            margin: 0 0.1rem;
+            width: 0.58rem;
+            height: 0.58rem;
+            margin: 0 .25rem 0 0;
         }
     }
 }

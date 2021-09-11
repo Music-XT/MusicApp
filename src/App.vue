@@ -17,7 +17,8 @@ export default defineComponent({
 }
 
 .icon {
-  width: 2em; height: 2em;
+  width: .5rem;
+  height: .5rem;
   overflow: hidden;
 }
 </style>
