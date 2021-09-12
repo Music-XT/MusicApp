@@ -59,8 +59,9 @@ const store = useStore()
 function updatePlayList(index: number) {
     // 切歌到该音乐, 或者当该音乐在暂停时播放该音乐
     store.commit('play')
-    if(store.state.curPlayIndex === index) return
-
+    
+    const idx = store.state.curPlayIndex
+    if(index === idx && props.tracks[idx].id === store.state.playList[idx].id) return
     store.commit('replacePlayList', {
         playList: props.tracks.map(item => ({
             id: item.id,
