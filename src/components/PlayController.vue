@@ -74,9 +74,8 @@ function onAudioPause(reset: any) {
     if(reset === true) {
         const name = pic.value.style.animationName === 'circle' ? 'circle-reset' : 'circle'
         pic.value.style.animationName = name
-    } else {
-        pic.value.style.animationPlayState = "paused"
     }
+    pic.value.style.animationPlayState = "paused"
 }
 
 const audio = ref()
