@@ -79,7 +79,7 @@ function updatePlayList(index: number) {
     color: #000;
     border-top-left-radius: .3rem;
     border-top-right-radius: .3rem;
-    padding: .15rem 0 0;
+    padding: .15rem 0;
 
     .line {
         padding: .1rem 0;

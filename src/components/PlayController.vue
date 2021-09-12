@@ -3,7 +3,7 @@
         <div class="padding-element"></div>
         <div class="play-controller">
             <div class="controller-left">
-                <img :src="songInfo.picUrl" :alt="songInfo.name" />
+                <img ref="pic" :src="songInfo.picUrl" :alt="songInfo.name" />
                 <div>
                     <div class="title">{{ songInfo.name }}</div>
                     <div class="desc">{{ desc }}</div>
@@ -12,10 +12,12 @@
             <div class="controller-right">
                 <audio :src="songInfo.src" ref="audio"
                     :autoplay="!isPaused"
-                    @loadstart="onAudionLoadStart"
+                    @loadstart="onAudionLoadStart(), onAudioPause(true)"
                     @canplay="onAudioCanPlay"
                     @error="onAudioError"
                     @ended="onAudioPlayEnd"
+                    @play="onAudioPlay"
+                    @pause="onAudioPause"
                 ></audio>
                 <svg class="icon" aria-hidden="true" @click="play(false)" v-show="canPlay && isPaused">
                     <use xlink:href="#icon-play" />
@@ -59,6 +61,22 @@ function onAudioCanPlay() {
 function onAudioError() {
     canPlay.value = false
     desc.value = '无法播放该音乐'
+}
+
+// 播放时图片旋转(通过 CSS 动画实现)
+const pic = ref()
+function onAudioPlay() {
+    if(pic.value) pic.value.style.animationPlayState = "running"
+}
+function onAudioPause(reset: any) {
+    if(!pic.value) return
+    // 默认会给reset传递一个 Event 对象, 所以这里判断 boolean
+    if(reset === true) {
+        const name = pic.value.style.animationName === 'circle' ? 'circle-reset' : 'circle'
+        pic.value.style.animationName = name
+    } else {
+        pic.value.style.animationPlayState = "paused"
+    }
 }
 
 const audio = ref()
@@ -128,6 +146,8 @@ function onAudioPlayEnd() {
             max-height: 1rem;
             padding: 0.1rem;
             border-radius: 50%;
+            animation: circle 30s linear infinite;
+            animation-play-state: paused;
         }
         >div {
             max-width: 4.84rem;
@@ -151,5 +171,14 @@ function onAudioPlayEnd() {
             margin: 0 .25rem 0 0;
         }
     }
+}
+
+@keyframes circle{
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+@keyframes circle-reset{
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
 }
 </style>
