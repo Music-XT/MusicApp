@@ -57,6 +57,8 @@ const songSupInfo = computed(() => {
 
 const store = useStore()
 function updatePlayList(index: number) {
+    // 切歌到该音乐, 或者当该音乐在暂停时播放该音乐
+    store.commit('play')
     if(store.state.curPlayIndex === index) return
 
     store.commit('replacePlayList', {

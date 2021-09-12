@@ -1,20 +1,26 @@
 <template>
-    <div v-if="curPlayIndex > -1">
+    <div v-if="songInfo">
         <div class="padding-element"></div>
         <div class="play-controller">
             <div class="controller-left">
                 <img :src="songInfo.picUrl" :alt="songInfo.name" />
                 <div>
                     <div class="title">{{ songInfo.name }}</div>
-                    <div class="desc">点击查看详情</div>
+                    <div class="desc">{{ desc }}</div>
                 </div>
             </div>
             <div class="controller-right">
-                <audio :src="songInfo.src" ref="audio" @loadstart="isPaused = true" @play="isPaused = false" @pause="isPaused = true" @ended="store.commit('nextSong')"></audio>
-                <svg class="icon" aria-hidden="true" @click="play(false)" v-show="isPaused">
+                <audio :src="songInfo.src" ref="audio"
+                    :autoplay="!isPaused"
+                    @loadstart="onAudionLoadStart"
+                    @canplay="onAudioCanPlay"
+                    @error="onAudioError"
+                    @ended="onAudioPlayEnd"
+                ></audio>
+                <svg class="icon" aria-hidden="true" @click="play(false)" v-show="canPlay && isPaused">
                     <use xlink:href="#icon-play" />
                 </svg>
-                <svg class="icon" aria-hidden="true" @click="play(true)" v-show="!isPaused">
+                <svg class="icon" aria-hidden="true" @click="play(true)" v-show="canPlay && !isPaused">
                     <use xlink:href="#icon-pause" />
                 </svg>
                 <svg class="icon" aria-hidden="true">
@@ -27,11 +33,11 @@
 <script lang="ts" setup>import getMusicUrl from "@/api";
 import { useStore } from "@/store";
 import { computed } from "@vue/reactivity";
-import { ref } from "vue";
+import { onBeforeUnmount, ref, watch } from "vue";
 
 const store = useStore()
-const curPlayIndex = computed(() => store.state.curPlayIndex)
 const songInfo = computed(() => {
+    if(store.state.curPlayIndex < 0) return undefined
     const baseInfo = store.state.playList[store.state.curPlayIndex]
     return {
         src: getMusicUrl(baseInfo.id),
@@ -39,11 +45,64 @@ const songInfo = computed(() => {
     }
 })
 
-const audio = ref()
-const isPaused = ref(true)
-function play(pause = false) {
-    audio.value && pause ? audio.value.pause() : audio.value.play()
+// 音源问题导致音乐无法播放时应该不显示播放和暂停按钮
+const canPlay = ref(false)
+const desc = ref('音乐加载中...')
+function onAudionLoadStart() {
+    canPlay.value = false
+    desc.value = '音乐加载中...'
 }
+function onAudioCanPlay() {
+    canPlay.value = true
+    desc.value = '点击查看详情'
+}
+function onAudioError() {
+    canPlay.value = false
+    desc.value = '无法播放该音乐'
+}
+
+const audio = ref()
+const isPaused = computed(() => store.state.playSemaphore === 0)
+const play = (pause = false) => {
+    if(pause) store.commit('pause')
+    else store.commit('play')
+}
+onBeforeUnmount(() => {
+    // 下次重新进入音乐列表页面时, 不再进行自动播放
+    play(true)
+})
+watch(computed(() => store.state.playSemaphore), () => {
+    if(!audio.value) {
+        // 兄弟组件通过 playSemaphore 传递播放音乐的事件
+        // 这里不用处理, 直接通过 isPaused 绑定给 autoplay 完成自动播放
+        return
+    }
+    if(isPaused.value) audio.value.pause()
+    else audio.value.play()
+})
+
+// 播放模式
+import PLAY_MODE from './constants'
+const playMode = computed(() => store.state.playMode)
+function onAudioPlayEnd() {
+    if(playMode.value === PLAY_MODE.RANDOM) {
+        let next = 0
+        do {
+            next = Math.floor(Math.random() * store.state.playList.length)
+        } while(next === store.state.curPlayIndex && store.state.playList.length > 1)
+        store.commit('nextSong', next)
+    } else if(playMode.value === PLAY_MODE.SINGLE) {
+        audio.value.currentTime = 0
+        play(false)
+    } else {
+        if(store.state.curPlayIndex === store.state.playList.length - 1) {
+            store.commit('nextSong', 0)
+        } else {
+            store.commit('nextSong')
+        }
+    }
+}
+
 </script>
 <style lang="less">
 .padding-element,
