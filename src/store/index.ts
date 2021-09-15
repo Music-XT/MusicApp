@@ -37,7 +37,17 @@ export const store = createStore<State>({
             state.curPlayIndex--
         },
         play(state) { state.playSemaphore = Math.random() },
-        pause(state) { state.playSemaphore = 0 }
+        pause(state) { state.playSemaphore = 0 },
+        insertSong(state, payload) {
+            // play 表示立即播放, 此时音乐以插入的方式添加到当前播放音乐之后
+            // 否则音乐将会追加到播放队列的末尾, 并且不会触发播放
+            const idx = payload.play ? state.curPlayIndex + 1 : state.playList.length
+            state.playList.splice(idx, 0, payload.song)
+            if(payload.play) {
+                state.curPlayIndex = idx
+                store.commit('play')
+            }
+        }
     },
     actions: {
         

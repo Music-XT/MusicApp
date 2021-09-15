@@ -2,7 +2,7 @@
 <div class="new-songs">
     <div class="title">推荐新歌</div>
     <div class="songs">
-        <div class="song" v-for="(item, idx) in newSongs" :key="idx">
+        <div class="song" v-for="(item, idx) in newSongs" :key="idx" @click="insertPlay(item)">
             <div class="pic">
                 <img :src="item.picUrl" alt="">
                 <svg class="icon" aria-hidden="true">
@@ -22,6 +22,7 @@
 </template>
 <script lang="ts" setup>
 import { getNewSongs } from '@/api/index'
+import { useStore } from '@/store';
 import { onBeforeMount } from '@vue/runtime-core';
 import { ref } from 'vue';
 
@@ -29,6 +30,16 @@ const newSongs = ref()
 onBeforeMount(async () => {
     newSongs.value = await getNewSongs()
 })
+
+const store = useStore()
+function insertPlay(song: {[prop: string]: any}) {
+    const info = {
+        id: song.id,
+        name: song.name,
+        picUrl: song.picUrl
+    }
+    store.commit('insertSong', {song: info, play: true})
+}
 </script>
 <style lang="less" scoped>
 .new-songs {

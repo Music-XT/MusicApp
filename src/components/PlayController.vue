@@ -128,6 +128,7 @@ function onAudioPlayEnd() {
     height: 1rem;
     background-color: #fff;
     box-shadow: 0 -0.01rem 0.05rem #eee;
+    z-index: 999;
 }
 
 .play-controller {
