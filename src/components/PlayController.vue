@@ -32,7 +32,8 @@
         </div>
     </div>
 </template>
-<script lang="ts" setup>import getMusicUrl from "@/api";
+<script lang="ts" setup>
+import { getMusicUrl } from "@/api";
 import { useStore } from "@/store";
 import { computed } from "@vue/reactivity";
 import { onBeforeUnmount, ref, watch } from "vue";

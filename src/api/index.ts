@@ -58,6 +58,24 @@ export async function getMusicListDetail(id: number):Promise<any> {
     return ret;
 }
 
-export default function getMusicUrl(id: number) {
+export function getMusicUrl(id: number) {
     return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+}
+
+export async function getNewSongs() {
+    const ret = []
+    try {
+        const res = await requests.get('/personalized/newsong')
+        const songs = (<any[]> res.data.result).map(item => ({
+            picUrl: item.picUrl,
+            id: item.song.id,
+            name: item.song.name,
+            artist: item.song.artists?.[0].name
+        }))
+        ret.push(...songs)
+    } catch(e) {
+        console.error('获取新歌列表失败: ' + (<Error>e).message);
+    }
+    
+    return ret
 }
