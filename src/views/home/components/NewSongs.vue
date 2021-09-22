@@ -1,6 +1,6 @@
 <template>
 <div class="new-songs">
-    <div class="title">推荐新歌<span> ({{newSongs.length??0}})</span></div>
+    <div class="title">推荐新歌<span> ({{newSongs?.length??0}})</span></div>
     <div class="songs">
         <div class="song" v-for="(item, idx) in newSongs" :key="idx" @click="insertPlay(item)">
             <div class="pic">
