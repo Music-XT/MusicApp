@@ -13,6 +13,7 @@
 2. vite.config.ts 文件中的构建路径需要自行修改
 
 
-## 后序计划
-1. 改用 ```<script setup>```
-2. 封装 axios
+## 进阶计划
+- [ ] page loading 页面加载效果
+- [ ] TypeScript 类型定义
+- [ ] 封装 axios
