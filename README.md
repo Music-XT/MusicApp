@@ -1,5 +1,5 @@
 ## 在线预览
-[![main](https://github.com/xtyuns/MusicApp/actions/workflows/gh-pages.yml/badge.svg?branch=main)]([https://music-xt.github.io/MusicApp](https://xtyuns.github.io/MusicApp)
+[![main](https://github.com/xtyuns/MusicApp/actions/workflows/gh-pages.yml/badge.svg?branch=main)](https://xtyuns.github.io/MusicApp)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/86d022ba-0a44-42d1-9b96-9afa5dd730db/deploy-status)](https://dev-music-xt.netlify.app)
 
 
